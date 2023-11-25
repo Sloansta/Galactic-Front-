@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1a1a1a; /* Dark background for a space theme */
+    /* background-image: url('path-to-your-background-image.jpg'); Optional: Add a background image */
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+.page-title {
+    margin-bottom: 30px;
+    font-size: 4em; /* Even larger font size for more impact */
+    color: #d4d4f5;
+    text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8); /* More prominent glow effect */
+    letter-spacing: 2px; /* Spacing out letters for a more digital look */
+    font-family: 'Orbitron', sans-serif; /* Assuming Orbitron or similar futuristic font */
+    cursor: pointer;
+    
+}
+
+.button-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-button {
+    width: 200px; /* Fixed width for all buttons */
+    height: 50px; /* Fixed height for all buttons */
+    margin: 10px;
+    padding: 10px 20px;
+    border: 2px solid #d4d4f5; /* Thicker border for a more prominent look */
+    background-color: transparent;
+    color: #d4d4f5;
+    font-size: 1.2em;
+    font-family: 'Orbitron', sans-serif; /* Consistent font with the title */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase; /* Makes the text uppercase for a more game-like feel */
+    letter-spacing: 1px; /* Spacing out letters */
+}
+
+.game-button:hover {
+    background-color: #d4d4f5;
+    color: #1a1a1a;
+    border-color: #1a1a1a;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8);
+}

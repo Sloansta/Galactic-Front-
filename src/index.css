@@ -1,0 +1,13 @@
+
+/* Remove default margin and padding */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Full height */
+    overflow: hidden; /* Hide overflow to prevent scrolling */
+}
+
+/* Set the background color */
+body {
+    background-color: #1a1a1a; /* Same as container div */
+}
