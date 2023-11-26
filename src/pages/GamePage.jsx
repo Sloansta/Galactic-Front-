@@ -1,6 +1,6 @@
 import Canvas from '../components/Canvas';
-import OrbitalObject from '../game/OrbitalObject';
-import { calculateGravitationalForce } from '../game/Helpers';
+import Tetris from '../game/Tetris';
+import { useEffect } from 'react'
 
 import '../styles/gamepage.css'
 
@@ -9,41 +9,51 @@ const GamePage = ({ onExit }) => {
         const confirmExit = window.confirm("Are you sure you want to leave the game?")
         if (confirmExit) 
             onExit()
-    }
+    } 
 
-
-    const updateObjects = () => {
-        for(let i = 0; i < objects.length; i++) {
-            for(let j = i + 1; j < objects.length; j++) {
-                const force = calculateGravitationalForce(objects[i], objects[j]);
-                objects[i].applyForce(force);
-                objects[j].applyForce({ x: -force.x, y: -force.y }); // Apply opposite force
-            }
-        }
-    
-        objects.forEach(obj => obj.updatePosition());
-    };
-
-    const objects = [
-            new OrbitalObject(100, 100, 20), 
-            new OrbitalObject(300, 200, 30), 
-            new OrbitalObject(200, 50, 10, 0.1, 0.3)
-    ]
-
-    
     const canvasWidth = window.innerWidth
     const canvasHeight = window.innerHeight
+    let tetris = null
     const draw = (ctx, frameCount) => {
+        if(tetris == null) {
+            tetris = new Tetris(ctx, 750, 100, 290, 600, 30, 0)
+        }
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
         ctx.fillStyle = '#000000'
         ctx.fillRect(0, 0, canvasWidth, canvasHeight)
-        updateObjects()
-        renderObjects(ctx)
+        if(tetris != null)
+            tetris.draw()
     }
 
-    const renderObjects = (ctx) => {
-        objects.forEach(object => object.draw(ctx))
-    }
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if(tetris != null) {
+                switch(event.key) {
+                    case 'a':
+                    case 'A': 
+                        tetris.moveTetromino(-1, 0)
+                        break
+                    case 'd':
+                    case 'D':
+                        tetris.moveTetromino(1, 0)
+                        break
+                    case 's':
+                    case 'S':
+                        tetris.moveTetromino(0, 1)
+                        break
+                    default: 
+                        break
+                }
+            }
+        }
+
+        window.addEventListener('keydown', handleKeyDown)
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown)
+        }
+    }, [])
+
 
     return (
         <div className="game-container">
