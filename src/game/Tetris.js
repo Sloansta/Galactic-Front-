@@ -9,16 +9,31 @@ class Tetris {
         this.score = score
 
         this.exampleTetromino = {
-            shape: [[1, 1, 1], [0, 1, 0]], // Represents a 'T' shape
+            shape: [[1, 1, 1], [1, 0, 0]], // Represents a 'T' shape
             x: 29, // Starting X position
             y: 4.3, // Starting Y position
         }
     }
 
     moveTetromino(dx, dy) {
-        this.exampleTetromino.x += dx
-        this.exampleTetromino.y += dy
+        let newX = this.exampleTetromino.x + dx;
+        let newY = this.exampleTetromino.y + dy;
+    
+        let tetrominoWidth = this.exampleTetromino.shape[0].length;
+        let tetrominoHeight = this.exampleTetromino.shape.length;
+    
+        if (newX < 25 || (newX + tetrominoWidth) > 35) {
+            dx = 0;
+        }
+    
+        if ((newY + tetrominoHeight) > 24.3) {
+            dy = 0;
+        }
+    
+        this.exampleTetromino.x += dx;
+        this.exampleTetromino.y += dy;
     }
+    
 
     drawTetromino() {
         this.ctx.fillStyle = 'red'; // Example color
