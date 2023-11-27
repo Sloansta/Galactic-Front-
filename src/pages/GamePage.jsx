@@ -41,6 +41,10 @@ const GamePage = ({ onExit }) => {
                     case 'S':
                         tetris.moveTetromino(0, 1)
                         break
+                    case 'w':
+                    case 'W': 
+                        tetris.rotateTetromino()
+                        break
                     default: 
                         break
                 }

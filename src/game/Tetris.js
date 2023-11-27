@@ -8,12 +8,60 @@ class Tetris {
         this.cellSize = cellSize
         this.score = score
 
+        this.playBoardWidth = 35
+        this.playBoardHeight = 24
+        this.board = this.initializeBoard()
+
         this.exampleTetromino = {
             shape: [[1, 1, 1], [1, 0, 0]], // Represents a 'T' shape
             x: 29, // Starting X position
             y: 4.3, // Starting Y position
         }
     }
+
+    initializeBoard() {
+        return Array.from({ length: this.playBoardHeight }, () => 
+            new Array(this.playBoardWidth).fill(0)
+        );
+    }    
+
+    rotateTetromino() {
+        const { shape, x, y } = this.exampleTetromino
+        let rotatedShape = []
+
+        for(let col = 0; col < shape[0].length; col++) {
+            rotatedShape.push([])
+            for(let row = 0; row < shape.length; row++) {
+                rotatedShape[col].unshift(shape[row][col])
+            }
+        }
+
+        if(!this.canPlace(rotatedShape, x, y)) {
+            return
+        }
+
+        this.exampleTetromino.shape = rotatedShape
+    }
+
+    canPlace(shape, x, y) {
+        let boardYInt = Math.floor(y);
+        for (let row = 0; row < shape.length; row++) {
+            for (let col = 0; col < shape[row].length; col++) {
+                if (shape[row][col]) {
+                    let boardX = x + col;
+                    let boardY = boardYInt + row;
+    
+                    if (boardX < 0 || boardX >= this.playBoardWidth ||
+                        boardY < 0 || boardY >= this.playBoardHeight ||
+                        this.board[boardY][boardX]) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    
 
     moveTetromino(dx, dy) {
         let newX = this.exampleTetromino.x + dx;
